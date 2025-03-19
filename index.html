@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>Juego de Adivinanza</title>
+</head>
+
+<body>
+
+  <h1>Adivinanza</h1>
+  
+  <p id="adivinanza">¿Qué es amarillo y tiene un montón de agujeros? (Escribe tu respuesta)</p>
+
+  <form>
+    <p>
+      <label>
+        Respuesta:
+        <input name="respuesta">
+      </label>
+    </p>
+    <p><button type="submit">Enviar</button></p>
+  </form>
+
+  <script type="module">
+    import { muestraError } from "./lib/js/muestraError.js";
+
+    async function procesaForm(event) {
+      event.preventDefault(); // Evita la recarga de la página
+
+      const formData = new FormData(event.target);
+
+      try {
+        const respuesta = await fetch("srv/procesa.php", {
+          method: "POST",
+          body: formData
+        });
+
+        if (!respuesta.ok) {
+          throw new Error(`Error ${respuesta.status}: ${respuesta.statusText}`);
+        }
+
+        const data = await respuesta.json();  // Asegúrate de que el servidor responda con JSON
+        if (data && data.resultado) {
+          alert(data.resultado);  // Muestra la respuesta del servidor
+        } else {
+          throw new Error("Respuesta inesperada del servidor.");
+        }
+      } catch (error) {
+        console.error(error);
+        muestraError(error);  // Maneja el error con la función externa
+      }
+    }
+
+    document.querySelector("form").addEventListener("submit", procesaForm);
+  </script>
+
+</body>
+
+</html>

@@ -1,0 +1,19 @@
+{
+    "compilerOptions": {
+      "checkJs": true, // Activa la verificación de tipos en archivos JavaScript
+      "strictNullChecks": true, // Asegura que las variables nulas sean manejadas explícitamente
+      "target": "ES6", // Compila el código a la versión ECMAScript 6 (ES6)
+      "module": "Node16", // Utiliza el sistema de módulos de Node.js v16
+      "moduleResolution": "Node16", // Usa la resolución de módulos de Node.js v16
+      "lib": [
+        "ES2017", // Proporciona los tipos para ES2017
+        "DOM", // Incluye los tipos del DOM para interactuar con el navegador
+        "WebWorker" // Agrega soporte para Web Workers
+      ]
+    },
+    "exclude": [
+      "node_modules", // Excluye la carpeta node_modules de la compilación
+      "dist" // Excluye la carpeta dist de la compilación
+    ]
+  }
+  
